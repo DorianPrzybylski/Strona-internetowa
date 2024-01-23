@@ -37,23 +37,23 @@ function calculate() {
     const summaryArray = [];
 
     if (hours1 > 0) {
-        summaryArray.push(`Gotowa strona w HTML CSS I JS: ${hours1} godzin - ${total1} zł`);
+        summaryArray.push(`Gotowa strona w HTML CSS I JS: ${hours1} godz. - ${total1} zł`);
     }
 
     if (hours2 > 0) {
-        summaryArray.push(`Pomoc mentora w tworzeniu strony w HTML CSS I JS: ${hours2} godzin - ${total2} zł`);
+        summaryArray.push(`Pomoc mentora w tworzeniu strony w HTML CSS I JS: ${hours2} godz. - ${total2} zł`);
     }
 
     if (hours3 > 0) {
-        summaryArray.push(`Debugowanie strony w HTML CSS I JS: ${hours3} godzin - ${total3} zł`);
+        summaryArray.push(`Debugowanie strony w HTML CSS I JS: ${hours3} godz. - ${total3} zł`);
     }
 
     if (hours4 > 0) {
-        summaryArray.push(`Tworzenie grafik: ${hours4} godzin - ${total4} zł`);
+        summaryArray.push(`Tworzenie grafik: ${hours4} godz. - ${total4} zł`);
     }
 
     if (hours5 > 0) {
-        summaryArray.push(`Tworzenie multimedialnych prezentacji po dostarczeniu przez użytkownika materiałów: ${hours5} godzin - ${total5} zł`);
+        summaryArray.push(`Tworzenie multimedialnych prezentacji po dostarczeniu przez użytkownika materiałów: ${hours5} godz. - ${total5} zł`);
     }
 
     const summary = summaryArray.join('\n') + `\n\nSuma: ${totalAmount.toFixed(2)} zł`;
@@ -130,7 +130,19 @@ function openPopup() {
   //formularz 
 
 
-  document.addEventListener('DOMContentLoaded', function () {
+function formatPhoneNumber(input) {
+    var phoneNumber = input.value.replace(/\D/g, '');
+
+    if (phoneNumber.length >= 4 && phoneNumber.length <= 6) {
+        var formattedPhoneNumber = phoneNumber.substring(0, 3) + ' ' + phoneNumber.substring(3);
+        input.value = formattedPhoneNumber;
+    } else if (phoneNumber.length > 6) {
+        var formattedPhoneNumber = phoneNumber.substring(0, 3) + ' ' + phoneNumber.substring(3, 6) + ' ' + phoneNumber.substring(6);
+        input.value = formattedPhoneNumber;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
     var inquiryTypeSelect = document.getElementById('inquiryType');
     var otherReasonField = document.getElementById('otherReason');
 
@@ -145,38 +157,43 @@ function openPopup() {
             otherReasonField.querySelector('textarea').removeAttribute('required');
         }
     });
+
+    document.addEventListener('input', validateInputs);
+
+    // Dodaj nasłuchiwacze na zmiany w polach z imieniem, nazwiskiem i numerem telefonu
+    document.getElementById('firstName').addEventListener('input', blockNumbersAndSymbols);
+    document.getElementById('lastName').addEventListener('input', blockNumbersAndSymbols);
+    document.getElementById('phoneNumber').addEventListener('input', blockLetters);
+
+    function blockNumbersAndSymbols(event) {
+        // Usuń cyfry i symbole z wprowadzonego tekstu
+        var newValue = event.target.value.replace(/[0-9!@#$%^&*()_+={}[\]:;<>,.?~\\/-]/g, '');
+        event.target.value = newValue;
+    }
+
+    function blockLetters(event) {
+        // Usuń litery z wprowadzonego tekstu
+        var newValue = event.target.value.replace(/[a-zA-Z]/g, '');
+        event.target.value = newValue;
+    }
 });
 
-function submitForm(event) {
-    event.preventDefault(); // Zapobiegaj domyślnej akcji formularza (tj. przeładowania strony)
+function validateInputs() {
+    var calculateButton = document.getElementById('calculateButton');
 
-    // Tutaj dodaj logikę do wysłania formularza, na przykład za pomocą fetch() lub innej metody.
-    // Możesz również dodać kod do walidacji formularza przed wysłaniem.
+    var hasPositiveValue = Array.from({ length: 5 }, (_, i) => {
+        var hours = document.getElementById(`service${i + 1}`).value.replace(/\D/g, '');
+        return hours.length > 0 && parseFloat(hours) > 0;
+    }).some(Boolean);
 
-    // Przykład: Wysyłanie formularza za pomocą fetch
-    fetch('url_do_serwera', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(getFormData()), // Pobranie danych formularza
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Formularz został wysłany:', data);
-        // Tutaj możesz dodać dodatkową logikę po wysłaniu formularza, np. pokazać potwierdzenie.
-    })
-    .catch(error => {
-        console.error('Wystąpił błąd podczas wysyłania formularza:', error);
-    });
+    var hasNegativeValue = Array.from({ length: 5 }, (_, i) => {
+        var hours = document.getElementById(`service${i + 1}`).value.replace(/\D/g, '');
+        return hours.length > 0 && parseFloat(hours) < 0;
+    }).some(Boolean);
+
+    calculateButton.disabled = !hasPositiveValue || hasNegativeValue;
 }
 
-// Funkcja pomocnicza do pobierania danych formularza
-function getFormData() {
-    const formData = new FormData(document.getElementById('contactForm'));
-    const data = {};
-    formData.forEach((value, key) => {
-        data[key] = value;
-    });
-    return data;
-}
+
+
+

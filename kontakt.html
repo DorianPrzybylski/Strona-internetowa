@@ -47,12 +47,12 @@
         <form id="contactForm">
           <div class="mb-3">
             <label for="firstName">Imię</label>
-            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Wprowadź imię" required>
+            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Wprowadź imię" required pattern="[A-Za-zęóąśłżźćńĘÓĄŚŁŻŹĆŃ]+" title="Proszę wprowadzić tylko litery">
           </div>
 
           <div class="mb-3">
             <label for="lastName">Nazwisko</label>
-            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Wprowadź nazwisko" required>
+            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Wprowadź nazwisko" required pattern="[A-Za-zęóąśłżźćńĘÓĄŚŁŻŹĆŃ]+" title="Proszę wprowadzić tylko litery">
           </div>
 
           <div class="mb-3">
@@ -62,7 +62,12 @@
 
           <div class="mb-3">
             <label for="phoneNumber">Numer Telefonu</label>
-            <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Wprowadź numer telefonu (opcjonalne)">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">+48</span>
+              </div>
+              <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Wprowadź numer telefonu (opcjonalne)"pattern="[0-9]{3} [0-9]{3} [0-9]{3}" title="Proszę wprowadzić 9 cyfr" maxlength="11" required oninput="formatPhoneNumber(this)">
+            </div>
           </div>
 
           <div class="mb-3">

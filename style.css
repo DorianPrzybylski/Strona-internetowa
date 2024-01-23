@@ -37,10 +37,33 @@ body {
   
   /*galeria */
 
-  .gallery-item {
-    position: relative;
-    cursor: pointer;
-    overflow: hidden;
+  /* ... Inne style ... */
+
+.gallery-item {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  height: 0;
+  padding-bottom: 66.66%; /* Zachowaj proporcje 3:2 dla zdjęć */
+  background-size: cover;
+  background-position: center;
+  border: 5px solid #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s;
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
+
+.row .col-md-6 {
+  margin-bottom: 20px;
+}
+
+/* ... Inne style ... */
+
+  
+  /* Zadbaj o to, aby powiększone zdjęcie zawsze było na wierzchu */
+  #myModal {
+    z-index: 1000; /* Ustaw z-index na wysoką wartość */
   }
   
   .gallery-item img {
