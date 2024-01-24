@@ -71,6 +71,7 @@ function calculate() {
 
 function validateInputs() {
     const calculateButton = document.getElementById('calculateButton');
+    const errorMessageDiv = document.getElementById('errorMessage');
 
     const hasPositiveValue = Array.from({ length: 5 }, (_, i) => {
         const hours = parseFloat(document.getElementById(`service${i + 1}`).value) || 0;
@@ -82,7 +83,13 @@ function validateInputs() {
         return hours < 0;
     }).some(Boolean);
 
-    calculateButton.disabled = !hasPositiveValue || hasNegativeValue;
+    if (hasNegativeValue) {
+        errorMessageDiv.textContent = "Proszę podać liczby dodatnie.";
+        calculateButton.disabled = true;
+    } else {
+        errorMessageDiv.textContent = "";
+        calculateButton.disabled = !hasPositiveValue;
+    }
 }
 
 document.addEventListener('input', validateInputs);
