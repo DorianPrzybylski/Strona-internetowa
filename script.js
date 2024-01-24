@@ -103,16 +103,87 @@ function validateInputs() {
 document.addEventListener('input', validateInputs);
 
 // prace
+let currentImageIndex = 0;
+const images = [
+  'img/galeria1.jpg',
+  'img/galeria2.jpg',
+  'img/galeria3.jpg',
+  'img/galeria4.jpg',
+  'img/galeria5.jpg',
+  'img/galeria6.jpg'
+];
+
 function openModal(imageName) {
     const modal = document.getElementById('myModal');
     const modalImage = document.getElementById('modalImage');
-    modal.style.display = 'block';
+
+    // Ustawienie obrazka w modalu
     modalImage.src = imageName;
+
+    // Pobranie oryginalnych rozmiarów obrazka
+    const image = new Image();
+    image.src = imageName;
+
+    // Po załadowaniu obrazka ustawienie odpowiednich rozmiarów modala
+    image.onload = function () {
+        const originalWidth = image.width;
+        const originalHeight = image.height;
+
+        // Ustawienie szerokości i wysokości obrazka w modalu, zachowując proporcje
+        const maxWidth = window.innerWidth * 0.8;
+        const maxHeight = window.innerHeight * 0.8;
+
+        if (originalWidth > maxWidth || originalHeight > maxHeight) {
+            const ratio = Math.min(maxWidth / originalWidth, maxHeight / originalHeight);
+            modalImage.style.width = `${originalWidth * ratio}px`;
+            modalImage.style.height = `${originalHeight * ratio}px`;
+        } else {
+            modalImage.style.width = `${originalWidth}px`;
+            modalImage.style.height = `${originalHeight}px`;
+        }
+
+        // Ustawienie odpowiednich stylów dla modala
+        modal.style.display = 'flex';
+        modal.style.alignItems = 'center';
+        modal.style.justifyContent = 'center';
+
+        // Dodanie obsługi strzałek
+        document.addEventListener('keydown', handleKeyPress);
+    };
 }
 
 function closeModal() {
     const modal = document.getElementById('myModal');
+    const modalImage = document.getElementById('modalImage');
+
+    // Przywrócenie domyślnych rozmiarów modala
+    modalImage.style.width = '';
+    modalImage.style.height = '';
+
     modal.style.display = 'none';
+
+    // Usunięcie obsługi strzałek
+    document.removeEventListener('keydown', handleKeyPress);
+}
+
+function handleKeyPress(event) {
+    if (event.key === 'ArrowLeft') {
+        showPreviousImage();
+    } else if (event.key === 'ArrowRight') {
+        showNextImage();
+    }
+}
+
+function showPreviousImage() {
+    currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+    const previousImage = images[currentImageIndex];
+    openModal(previousImage);
+}
+
+function showNextImage() {
+    currentImageIndex = (currentImageIndex + 1) % images.length;
+    const nextImage = images[currentImageIndex];
+    openModal(nextImage);
 }
 
 //popup
@@ -196,4 +267,18 @@ function validateInputs() {
 
 
 
+
+// formularz kierunkowy
+
+document.getElementById('countryCode').addEventListener('change', function() {
+    var selectedOption = this.options[this.selectedIndex];
+    var countryCodeDisplay = document.getElementById('countryCodeDisplay');
+    
+    // Ustaw numer kierunkowy w elemencie wyświetlającym
+    countryCodeDisplay.textContent = selectedOption.getAttribute('data-display');
+    
+    // Ustaw numer kierunkowy w polu do wpisywania
+    var phoneNumberInput = document.getElementById('phoneNumber');
+    phoneNumberInput.value = selectedOption.value;
+});
 
