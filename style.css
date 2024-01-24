@@ -4,14 +4,14 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 0; /* Usunięcie domyślnego marginesu body */
+    margin: 0; 
     padding: 0;
   }
   
   #slider {
     width: 70%;
     margin: auto;
-    max-width: 100%; /* Ustawienie maksymalnej szerokości na 100%, aby zapobiec przekraczaniu ekranu */
+    max-width: 100%; 
   }
   
   .carousel-inner {
@@ -28,23 +28,21 @@ body {
     width: 100%;
   }
   
-  /* Dodanie responsywności dla urządzeń mobilnych i tabletów */
+  /*responsywność slidera */
   @media (max-width: 768px) {
     #slider {
       width: 90%;
     }
   }
   
-  /*galeria */
-
-  /* ... Inne style ... */
+  /*prace - galeria */
 
 .gallery-item {
   position: relative;
   cursor: pointer;
   overflow: hidden;
   height: 0;
-  padding-bottom: 66.66%; /* Zachowaj proporcje 3:2 dla zdjęć */
+  padding-bottom: 66.66%; 
   background-size: cover;
   background-position: center;
   border: 5px solid #fff;
@@ -58,12 +56,9 @@ body {
   margin-bottom: 20px;
 }
 
-/* ... Inne style ... */
 
-  
-  /* Zadbaj o to, aby powiększone zdjęcie zawsze było na wierzchu */
   #myModal {
-    z-index: 1000; /* Ustaw z-index na wysoką wartość */
+    z-index: 1000; 
   }
   
   .gallery-item img {
@@ -114,12 +109,12 @@ body {
   }
 
   .navbar .navbar-nav .nav-item .nav-link {
-    color: black; /* Kolor tekstu w stanie normalnym */
-    transition: opacity 0.4s; /* Dodaj efekt przejścia */
+    color: black;
+    transition: opacity 0.4s; 
   }
   
   .navbar .navbar-nav .nav-item .nav-link:hover {
-    opacity: 0.7; /* Nowa wartość opacity po najechaniu */
+    opacity: 0.7; 
   }
   
   .gallery-item {
@@ -129,16 +124,15 @@ body {
     height: 300px;
     background-size: cover;
     background-position: center;
-    border: 5px solid #fff; /* Fajna ramka */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Cień */
-    transition: transform 0.3s; /* Efekt po najechaniu kursorem */
+    border: 5px solid #fff; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+    transition: transform 0.3s; 
   }
 
   .gallery-item:hover {
-    transform: scale(1.1); /* Powiększenie po najechaniu kursorem */
+    transform: scale(1.1); 
   }
   
-  /* Odstęp między zdjęciami */
   .row .col-md-6 {
     margin-bottom: 20px;
   }
@@ -156,8 +150,8 @@ body {
     padding: 20px;
     border: 1px solid #888;
     z-index: 2;
-    overflow-y: auto; /* Dodane przewijanie pionowe, jeśli zawartość jest dłuższa niż popup */
-    max-height: 80vh; /* Maksymalna wysokość - 80% wysokości widoku */
+    overflow-y: auto; 
+    max-height: 80vh; 
   }
   
   .popup-content {
@@ -178,7 +172,6 @@ body {
     cursor: pointer;
   }
   
-  /* Dodany kod, aby wysrodkować napis otwierający popup */
   #openPopupLink {
     display: block;
     text-align: center;
@@ -188,8 +181,6 @@ body {
   }
   
 
-
-/* Dodaj nowe style dla kontenera strzałek */
 .modal .nav-arrows {
     display: flex;
     justify-content: space-between;
@@ -198,7 +189,7 @@ body {
     width: 100%;
 }
 
-/* Dodaj nowe style dla strzałki w lewo */
+
 .modal .nav-arrows a.prev {
     font-size: 30px;
     font-weight: bold;
@@ -209,7 +200,7 @@ body {
     transition: 0.3s;
 }
 
-/* Dodaj nowe style dla strzałki w prawo */
+
 .modal .nav-arrows a.next {
     font-size: 30px;
     font-weight: bold;
@@ -220,22 +211,21 @@ body {
     transition: 0.3s;
 }
 
-/* Dodaj efekt po najechaniu na strzałki */
+
 .modal .nav-arrows a.prev:hover, .modal .nav-arrows a.next:hover {
     background-color: rgba(0, 0, 0, 0.8);
 }
 
 #countryCode {
-  max-width: 80px; /* Ustawia maksymalną szerokość pola na 80 pikseli (dla przykładu) */
+  max-width: 80px;
 }
 
 
 /*Formularz*/
-/* style.css */
 .btn-primary, .btn-secondary {
-  margin-top: 10px; /* Dodaj trochę odstępu między przyciskami a polem treści zapytania */
+  margin-top: 10px;
 }
 
 .btn-secondary {
-  margin-left: 5px; /* Dodaj odstęp między przyciskami Resetuj a Wyślij */
+  margin-left: 5px; 
 }
